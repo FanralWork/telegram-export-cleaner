@@ -1,33 +1,27 @@
-# Telegram Export Cleaner
+# Очистка экспорта Telegram
 
-A command-line tool that converts Telegram Desktop HTML chat exports into UTF-8 text for offline reading and text processing.
+Консольная утилита преобразует HTML-экспорт чатов Telegram Desktop в текст UTF-8 для чтения и обработки на своём компьютере.
 
-## Features
+## Возможности
 
-- Processes a single HTML page or a folder of numbered `messages*.html` pages.
-- Merges messages in chronological order when timestamps can be parsed.
-- Preserves reply references and available forwarding details. Attachments are represented as text markers.
-- Can omit the sender name from each message header.
+- Обрабатывает отдельный HTML-файл или папку с несколькими страницами `messages*.html`.
+- Объединяет сообщения в хронологическом порядке, если удалось разобрать даты.
+- Сохраняет отметки об ответах, пересылках и вложениях.
+- Позволяет убрать имя отправителя из заголовков сообщений.
 
-## Stack and architecture
+## Устройство
 
-The tool uses the Python standard library. `telegram_cleaner.py` builds a small HTML tree with `HTMLParser`, extracts message records, and renders the combined plain-text output. No Telegram credentials or Python packages are needed.
+`telegram_cleaner.py` строит дерево документа с помощью `HTMLParser`, извлекает сообщения и формирует текст. Утилита работает на стандартной библиотеке Python 3.10 или новее. Достаточно сохранить экспорт в формате HTML в Telegram Desktop.
 
-## Setup and usage
-
-Export a chat as HTML in Telegram Desktop. Run these commands with Python 3.10 or later.
+## Запуск
 
 ```sh
 python telegram_cleaner.py "./telegram-export"
 python telegram_cleaner.py "./telegram-export/messages.html" -o "./output/chat.txt" --no-sender
 ```
 
-The default output is `telegram_clean.txt` next to the export or inside the input folder. A file at the chosen output path is overwritten.
+По умолчанию результат сохраняется в `telegram_clean.txt` рядом с экспортом или внутри переданной папки. Файл по указанному выходному пути перезаписывается.
 
-## Status and limitations
+## Ограничения
 
-The parser depends on Telegram Desktop's export markup and loads each page into memory. It processes the HTML export format. Sender names can still appear in forwarded headers or message content when using `--no-sender`. Keep real exports and the resulting text private.
-
-## Кратко для портфолио
-
-Локальная утилита преобразует HTML-экспорт Telegram Desktop в хронологический текст с отметками ответов, пересылок и вложений. Использует стандартную библиотеку Python.
+Парсер зависит от разметки Telegram Desktop и загружает каждую страницу в память. Флаг `--no-sender` убирает имя из заголовка, однако оно может сохраниться в тексте сообщения или отметке о пересылке. Исходные чаты и обработанные выгрузки содержат переписку, поэтому их следует хранить отдельно от репозитория.

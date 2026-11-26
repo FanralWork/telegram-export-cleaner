@@ -1,0 +1,33 @@
+# Python and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.idea/
+.vscode/
+.env
+.env.*
+
+# Local exports and results
+/telegram-export/
+/exports/
+/output/
+/photos/
+/video_files/
+/voice_messages/
+/files/
+/stickers/
+/chats/
+/round_video_messages/
+/profile_pictures/
+/lists/
+/images/
+/css/
+/js/
+/result.json
+/export_results.html
+messages*.html
+telegram_clean.txt
+*.zip
+*.7z
